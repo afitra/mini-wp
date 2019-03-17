@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+
     <title>Collapsible sidebar using Bootstrap 4</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -13,6 +14,7 @@
         crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/vueWysiwyg.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -33,184 +35,76 @@
         crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
+    <!-- sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <!-- facebook share -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/id_ID/sdk.js#xfbml=1&version=v3.2"></script>
+
+
+
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
 
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">My Sites <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reader</a>
-                </li>
-            </ul>
-        </div>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </nav>
+    <div id="app">
 
-    <div class="wrapper">
 
-        <!-- Sidebar -->
-        <nav id="sidebar">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
 
-            <div id="dismiss">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-
-            <div class="sidebar-header">
-                <h3>NPWP</h3>
-                <strong>MW</strong>
-            </div>
-
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <!-- <i class="fas fa-home">Home</i></a> -->
-                        <a href="">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="#">Home 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 3</a>
-                            </li>
-                        </ul>
-                </li>
-            </ul>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">CRUD</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#" v-if="page==='editor'">CREATE</a>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">My Sites <span class="sr-only">ok</span></a>
                     </li>
-                    <li>
-                        <a href="#">ALL DATA</a>
-                    </li>
-                    <li>
-                        <a href="#">SEARCH</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reader</a>
                     </li>
                 </ul>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
+            </div>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </nav>
 
+        <div>
+            <register @form-register="" v-if="formRegister"></register>
 
+            <login @form-login="mainlogin" v-if="formLogin"></login>
+        </div>
+        <alldata v-if="allData" @alldata="logout"></alldata>
+        <!-- <createArticle></createArticle> -->
+        <!--  -->
 
+        <!-- <div class="g-signin2" data - onsuccess="onSignIn" id="google_signin"> </div> -->
 
-
-
-        <!-- Page Content -->
-        <section class="about" id="app">
-
-            <div class="search">
-                <label>Search title:</label>
-                <input type="text" v-model="search" placeholder="Search title.." />
-            </div>
-
-            <div class="card" v-for="post in filteredList">
-                <a v-bind:href="post.link" target="_blank">
-                    <img v-bind:src="post.img" />
-                    <small>
-                        <p>id : </p>
-                        {{post._id}}
-                        <p>title : </p>
-                        {{post.title}}
-                        <p>article : </p>
-                        {{post.article}}
-                        <p>date : </p>
-                        {{post.created_At}}
-                        <hr>
-                    </small>
-
-                </a>
-
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-control">
-                            <label for="namearticle">Title</label>
-                            <input placeholder="wajib di isi" v-model="name" type="text" name="namearticle" id="namearticle"
-                                class="formnamearticle" required>
-                            <label for="created_At">create</label>
-                            <input placeholder="wajib di isi" v-model='created_At' type="date" name="created_At" id="created_At"
-                                class="formcreated_At" required>
-                        </div>
-                        <textarea placeholder="wajib di isi" v-model='article' name="article" id="article" cols="30"
-                            rows="10" style="resize: none" required></textarea>
-                        <button type="submit" class="btn btn-primary" v-on:click="addNewArticle">Add Article</button>
-                    </div>
-
-                    <div class="edit" v-if="page==='editor'">
-                        <div class="col-lg-6">
-                            <div class="box">
-                                {{noId}}
-                                <label for="namearticle">Title</label>
-                                <input v-model="newTitle" type="text" name="namearticle" id="namearticle" class="formnamearticle">
-                                <label for="created_At">create</label>
-                                <input v-model='newCreate' type="date" name="created_At" id="created_At" class="formcreated_At">
-                                <textarea v-model='newArticle' name="article" id="article" cols="30" rows="10" style="resize: none"></textarea>
-                                <button type="submit" class="btn btn-primary" v-on:click="editArticle">edit Article</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <hr>
-            <h5>list data :</h5>
-            <ul id="v-for-object" class="demo">
-
-                <li v-for="(value,i) in articles">
-                    <input type="text" value='ok'>
-                    <p>id : </p>
-                    {{value._id}}
-                    <p>title : </p>
-
-                    {{value.title}}
-                    <p>article : </p>
-                    {{value.article}}
-                    <p>date : </p>
-                    {{value.created_At}} <br>
-                    <button v-on:click="page='editor';noId=value._id;editArticle()">edit </button>
-                    <br>
-                    <button v-on:click="noId=value._id;deleteArticle()">delete </button>
-                    <hr>
-                </li>
-
-            </ul>
-
-        </section>
     </div>
+
 
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="./js/data.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script>
+
+    <!-- <script src="./js/data.js"></script> -->
+    <!--component -->
+    <script src="/component/registers.js"></script>
+    <script src="/component/login.js"></script>
+    <script src="./js/vueWysiwyg.js"></script>
+    <script src="/component/all.js"></script>
+
+    <!--component  -->
+
+    <script src="/main.js"></script>
+    <script src="/component/google.js"></script>
 
 </body>
 

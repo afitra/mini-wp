@@ -6,9 +6,13 @@ mongoose.connect('mongodb://localhost:27017/article', {
 
 var articleSchema = new Schema({
     title: String,
-    article: String,
-    created_At: Date
-
+    content: String,
+    created_At: Date,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
+    },
+    featured_image: String
 });
 
 

@@ -3,7 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 // Connection URL
 const url = 'mongodb://localhost:27017';
 // Database Name
-const dbName = 'mini-wp';
+const dbName = 'miniWp';
 
 // Create a new MongoClient
 const client = new MongoClient(url, {
@@ -23,7 +23,7 @@ app.use(express.urlencoded({
     extends: false
 }))
 
-app.use('/api', router)
+app.use('/', router)
 
 app.listen(port, function () {
     console.log(`live on port ${port} ######*******`);
