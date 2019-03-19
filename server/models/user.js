@@ -8,7 +8,7 @@ var userSchema = new Schema({
     username: String,
     email: {
         type: String,
-        validate: {
+        validate: [{
             validator: function (value) {
                 return User.findOne({
                         email: value,
@@ -26,7 +26,13 @@ var userSchema = new Schema({
                         throw new Error(err)
                     })
             }
-        }
+        }, {
+            validator: function (value) {
+                const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(value).toLowerCase());
+            },
+            message: 'Email format wrong'
+        }]
     },
     password: String
 

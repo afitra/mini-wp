@@ -29,6 +29,9 @@ Vue.component('register', {
 
                     this.pesan = `suksses`
                     swal(`register is: ${this.pesan} silahkan login `);
+                    this.registerEmail = ''
+                    this.registerUsername = ''
+                    this.registerPassword = ''
                 })
                 .catch((err) => {
                     this.pesan = 'gagal'
